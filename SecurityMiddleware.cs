@@ -1,7 +1,4 @@
 ﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace HGWebApp
@@ -20,15 +17,14 @@ namespace HGWebApp
 
                 token = token.Replace("Bearer ", "");
 
-                // Aquí puedes validar el token con la API de Spotify
+                // Se valida el token
                 return ValidateTokenWithSpotify(token);
             }
 
-            private static bool ValidateTokenWithSpotify(string token)
-            {
-			// Realiza una solicitud a un endpoint de Spotify para validar el token.
-			// Por ejemplo, usa RestSharp o HttpClient para llamar al endpoint `/v1/me`.
-			// Devuelve true si es válido o false si no lo es.
+		private static bool ValidateTokenWithSpotify(string token)
+		{
+			// Se hace un request a un endpoint para validar el token 			
+			// Devuelve true si es válido.
 
 			//LLamar algún endpoint
 			var client = new RestClient("https://api.spotify.com");
@@ -41,14 +37,12 @@ namespace HGWebApp
 			{
 				var userProfile = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(response.Content);
 				// Procesa los datos del perfil del usuario
+				return true;
 			}
 			else
 			{
-				// Maneja el error
+				return false;
 			}
-
-			// Pseudocódigo para ilustrar:
-			return !string.IsNullOrEmpty(token); // Sustituye esto por la lógica real
-            }        
+		}        
     }
 }
